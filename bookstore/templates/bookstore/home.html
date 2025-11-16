@@ -1,0 +1,124 @@
+{% extends 'bookstore/base.html' %}
+{% load static %}
+
+{% block title %}Home - Burt's Bookshelf{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold">Burt's Bookshelf</h1>
+                <p class="lead">Discover your next great read from our carefully curated collection of books.</p>
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{% url 'bookstore:fiction' %}" class="btn btn-primary btn-lg">Browse Fiction</a>
+                    <a href="{% url 'bookstore:nonfiction' %}" class="btn btn-outline-primary btn-lg">Explore Non-Fiction</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="bi bi-book display-1 text-primary"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Explore Our Collections</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center category-card">
+                    <div class="card-body">
+                        <i class="bi bi-book-half display-3 text-primary mb-3"></i>
+                        <h5 class="card-title">Fiction</h5>
+                        <p class="card-text">Immerse yourself in captivating stories and imaginary worlds.</p>
+                        <a href="{% url 'bookstore:fiction' %}" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center category-card">
+                    <div class="card-body">
+                        <i class="bi bi-journal-text display-3 text-success mb-3"></i>
+                        <h5 class="card-title">Non-Fiction</h5>
+                        <p class="card-text">Learn from real stories, biographies, and educational content.</p>
+                        <a href="{% url 'bookstore:nonfiction' %}" class="btn btn-success">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center category-card">
+                    <div class="card-body">
+                        <i class="bi bi-star display-3 text-warning mb-3"></i>
+                        <h5 class="card-title">Teens & Kids</h5>
+                        <p class="card-text">Adventures and learning for young readers of all ages.</p>
+                        <a href="{% url 'bookstore:teens_kids' %}" class="btn btn-warning">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center category-card">
+                    <div class="card-body">
+                        <i class="bi bi-headphones display-3 text-info mb-3"></i>
+                        <h5 class="card-title">Audiobooks</h5>
+                        <p class="card-text">Listen to your favorite books anywhere, anytime.</p>
+                        <a href="{% url 'bookstore:audiobooks' %}" class="btn btn-info">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Books Section -->
+<section class="featured-books py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Books</h2>
+        {% if featured_books %}
+        <div class="row g-4">
+            {% for book in featured_books %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 book-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text text-muted">by {{ book.author }}</p>
+                        <p class="card-text">{{ book.description|truncatewords:20 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0 text-primary">${{ book.price }}</span>
+                            <span class="badge bg-secondary">{{ book.get_category_display }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center">
+            <p class="lead">No featured books available at the moment. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">About Burt's Bookshelf</h2>
+                <p class="lead">
+                    For over 20 years, Burt's Bookshelf has been serving the community with quality books
+                    and exceptional service. We pride ourselves on our carefully curated selection and
+                    personalized recommendations.
+                </p>
+                <p>
+                    Whether you're looking for the latest bestseller, a classic novel, or educational
+                    materials for your children, we have something for everyone.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

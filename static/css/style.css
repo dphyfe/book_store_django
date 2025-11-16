@@ -1,0 +1,240 @@
+/* Custom CSS for Burt's Bookshelf */
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Search Bar Section */
+.search-bar-section {
+    border-bottom: 1px solid #dee2e6;
+    position: relative;
+    z-index: 1050;
+}
+
+.search-bar-section .form-control-lg {
+    border-radius: 50px 0 0 50px;
+    border-right: none;
+}
+
+.search-bar-section .btn-lg {
+    border-radius: 0 50px 50px 0;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.search-bar-section .form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-color: #86b7fe;
+}
+
+/* Account Dropdown */
+.search-bar-section .dropdown-toggle {
+    font-weight: 600;
+    border-width: 2px;
+    white-space: nowrap;
+}
+
+.search-bar-section .dropdown-toggle:hover {
+    background-color: #212529;
+    color: white;
+}
+
+.search-bar-section .dropdown-menu {
+    min-width: 200px;
+    border: 2px solid #212529;
+    margin-top: 10px;
+    z-index: 1060;
+}
+
+.search-bar-section .dropdown-item {
+    padding: 10px 20px;
+    transition: background-color 0.2s ease;
+}
+
+.search-bar-section .dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.search-bar-section .dropdown-item strong {
+    color: #212529;
+}
+
+.search-bar-section .btn-outline-dark {
+    transition: all 0.3s ease;
+}
+
+.search-bar-section .btn-outline-dark:hover i {
+    transform: scale(1.1);
+}
+
+/* Navbar Styles */
+.navbar {
+    position: relative;
+    z-index: 1040;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    transition: all 0.3s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    transform: translateY(-2px);
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.hero-section .btn {
+    padding: 12px 30px;
+    font-weight: 500;
+}
+
+/* Category Cards */
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.category-card i {
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover i {
+    transform: scale(1.1);
+}
+
+/* Book Cards */
+.book-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.book-card .card-title {
+    color: #333;
+    font-weight: 600;
+    min-height: 48px;
+}
+
+.book-card .card-img-top {
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Page Header */
+.page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Featured Books Section */
+.featured-books {
+    background-color: #f8f9fa;
+}
+
+/* About Section */
+.about-section {
+    background-color: #fff;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+footer a:hover {
+    color: #adb5bd !important;
+}
+
+/* Buttons */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Badge Styles */
+.badge {
+    padding: 0.5em 0.75em;
+    font-weight: 500;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .category-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Burt's Bookshelf{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Search Bar Section -->
+    <div class="search-bar-section bg-light py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-7">
+                    <form class="d-flex" role="search">
+                        <input class="form-control form-control-lg me-2" type="search" placeholder="Search for books, authors, or categories..." aria-label="Search">
+                        <button class="btn btn-primary btn-lg" type="submit">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </form>
+                </div>
+                <div class="col-lg-4 col-md-5 text-end">
+                    <!-- My Account Dropdown -->
+                    <div class="dropdown d-inline-block" style="position: relative; z-index: 1060;">
+                        <button class="btn btn-outline-dark btn-lg dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> MY ACCOUNT
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" href="#"><strong>Sign In</strong></a></li>
+                            <li><a class="dropdown-item" href="#">Create an Account</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Manage Account</a></li>
+                            <li><a class="dropdown-item" href="#">Order Status</a></li>
+                            <li><a class="dropdown-item" href="#">My Digital Library</a></li>
+                            <li><a class="dropdown-item" href="#">Address Book</a></li>
+                            <li><a class="dropdown-item" href="#">Payment Methods</a></li>
+                        </ul>
+                    </div>
+                    <!-- Wishlist Icon -->
+                    <button class="btn btn-outline-dark btn-lg ms-2" type="button">
+                        <i class="bi bi-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'bookstore:home' %}">
+                <i class="bi bi-book"></i> Burt's Bookshelf
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'bookstore:home' %}">
+                            <i class="bi bi-house-door"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'fiction' %}active{% endif %}" href="{% url 'bookstore:fiction' %}">
+                            <i class="bi bi-book-half"></i> Fiction
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'nonfiction' %}active{% endif %}" href="{% url 'bookstore:nonfiction' %}">
+                            <i class="bi bi-journal-text"></i> Non-Fiction
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'teens_kids' %}active{% endif %}" href="{% url 'bookstore:teens_kids' %}">
+                            <i class="bi bi-star"></i> Teens/Kids
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'audiobooks' %}active{% endif %}" href="{% url 'bookstore:audiobooks' %}">
+                            <i class="bi bi-headphones"></i> Audiobooks
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="bi bi-book"></i> Burt's Bookshelf</h5>
+                    <p>Your local bookstore for all your reading needs.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'bookstore:home' %}" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="{% url 'bookstore:fiction' %}" class="text-white text-decoration-none">Fiction</a></li>
+                        <li><a href="{% url 'bookstore:nonfiction' %}" class="text-white text-decoration-none">Non-Fiction</a></li>
+                        <li><a href="{% url 'bookstore:teens_kids' %}" class="text-white text-decoration-none">Teens/Kids</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>
+                        <i class="bi bi-geo-alt"></i> 123 Book Street, Reading City<br>
+                        <i class="bi bi-telephone"></i> (555) 123-4567<br>
+                        <i class="bi bi-envelope"></i> info@burtsbookshelf.com
+                    </p>
+                </div>
+            </div>
+            <hr class="bg-white">
+            <div class="text-center">
+                <p>&copy; 2025 Burt's Bookshelf. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>
