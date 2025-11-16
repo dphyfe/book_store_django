@@ -4,7 +4,7 @@ from .models import Book
 
 def home(request):
     """View for the home page."""
-    featured_books = Book.objects.filter(in_stock=True)[:6]
+    featured_books = Book.objects.filter(in_stock=True)[:8]
     context = {
         "featured_books": featured_books,
     }
@@ -53,3 +53,52 @@ def audiobooks(request):
         "category_description": "Listen to your favorite books on the go.",
     }
     return render(request, "bookstore/category.html", context)
+
+
+def cart(request):
+    """View for the shopping cart page."""
+    cart_items = request.session.get("cart", {})
+    books_in_cart = []
+    total_price = 0
+
+    for book_id, quantity in cart_items.items():
+        try:
+            book = Book.objects.get(id=book_id)
+            subtotal = float(book.price) * quantity
+            books_in_cart.append({"book": book, "quantity": quantity, "subtotal": subtotal})
+            total_price += subtotal
+        except Book.DoesNotExist:
+            pass
+
+    context = {"cart_items": books_in_cart, "total_price": total_price, "cart_count": sum(cart_items.values())}
+    return render(request, "bookstore/cart.html", context)
+
+
+def add_to_cart(request, book_id):
+    """Add a book to the shopping cart."""
+    from django.shortcuts import redirect
+
+    cart = request.session.get("cart", {})
+    book_id_str = str(book_id)
+
+    if book_id_str in cart:
+        cart[book_id_str] += 1
+    else:
+        cart[book_id_str] = 1
+
+    request.session["cart"] = cart
+    return redirect(request.META.get("HTTP_REFERER", "bookstore:home"))
+
+
+def remove_from_cart(request, book_id):
+    """Remove a book from the shopping cart."""
+    from django.shortcuts import redirect
+
+    cart = request.session.get("cart", {})
+    book_id_str = str(book_id)
+
+    if book_id_str in cart:
+        del cart[book_id_str]
+
+    request.session["cart"] = cart
+    return redirect("bookstore:cart")

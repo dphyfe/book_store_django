@@ -85,10 +85,13 @@
                         <h5 class="card-title">{{ book.title }}</h5>
                         <p class="card-text text-muted">by {{ book.author }}</p>
                         <p class="card-text">{{ book.description|truncatewords:20 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="h5 mb-0 text-primary">${{ book.price }}</span>
                             <span class="badge bg-secondary">{{ book.get_category_display }}</span>
                         </div>
+                        <a href="{% url 'bookstore:add_to_cart' book.id %}" class="btn btn-primary w-100" {% if not book.in_stock %}onclick="return false;" style="pointer-events: none; opacity: 0.6;" {% endif %}>
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                        </a>
                     </div>
                 </div>
             </div>

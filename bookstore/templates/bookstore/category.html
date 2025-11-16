@@ -45,9 +45,9 @@
                                 <span class="badge bg-danger">Out of Stock</span>
                                 {% endif %}
                             </div>
-                            <button class="btn btn-primary w-100" {% if not book.in_stock %}disabled{% endif %}>
+                            <a href="{% url 'bookstore:add_to_cart' book.id %}" class="btn btn-primary w-100" {% if not book.in_stock %}onclick="return false;" style="pointer-events: none; opacity: 0.6;" {% endif %}>
                                 <i class="bi bi-cart-plus"></i> Add to Cart
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
