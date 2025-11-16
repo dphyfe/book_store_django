@@ -1,11 +1,24 @@
 /* Custom CSS for Burt's Bookshelf */
 
+/* Color Scheme Variables */
+:root {
+    --primary-yellow: #FFE66D;
+    --light-yellow: #FFF4A3;
+    --dark-yellow: #F4D03F;
+    --black: #000000;
+    --dark-grey: #1a1a1a;
+    --medium-grey: #2d2d2d;
+    --light-grey: #4a4a4a;
+    --text-light: #e0e0e0;
+}
+
 /* Global Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: var(--dark-grey);
 }
 
 main {
@@ -14,14 +27,31 @@ main {
 
 /* Search Bar Section */
 .search-bar-section {
-    border-bottom: 1px solid #dee2e6;
+    background-color: var(--black) !important;
+    border-bottom: 2px solid var(--primary-yellow);
     position: relative;
     z-index: 1050;
+}
+
+.search-bar-right {
+    flex-shrink: 0;
+}
+
+.account-cart-right {
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .search-bar-section .form-control-lg {
     border-radius: 50px 0 0 50px;
     border-right: none;
+    background-color: var(--medium-grey);
+    border-color: var(--light-grey);
+    color: white;
+}
+
+.search-bar-section .form-control-lg::placeholder {
+    color: #999;
 }
 
 .search-bar-section .btn-lg {
@@ -31,8 +61,53 @@ main {
 }
 
 .search-bar-section .form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+    border-color: var(--primary-yellow);
+    background-color: var(--medium-grey);
+    color: white;
+}
+
+.btn-search {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: black;
+    font-weight: 600;
+}
+
+.btn-search:hover {
+    background-color: var(--dark-yellow);
+    border-color: var(--dark-yellow);
+    color: black;
+}
+
+.btn-account {
+    background-color: transparent;
+    border: 1px solid var(--primary-yellow);
+    color: var(--primary-yellow);
+    font-weight: 600;
+}
+
+.btn-account:hover {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: black;
+}
+
+.btn-cart {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: black;
+}
+
+.btn-cart:hover {
+    background-color: var(--dark-yellow);
+    border-color: var(--dark-yellow);
+    color: black;
+}
+
+.badge-cart-count {
+    background-color: black !important;
+    color: var(--primary-yellow) !important;
 }
 
 /* Account Dropdown */
@@ -81,27 +156,56 @@ main {
     z-index: 1040;
 }
 
+.navbar-custom {
+    background-color: var(--black) !important;
+    border-bottom: 2px solid var(--primary-yellow);
+}
+
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
+    color: var(--primary-yellow) !important;
+}
+
+.nav-btn {
+    border: 2px solid var(--primary-yellow) !important;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: var(--primary-yellow) !important;
+    background-color: transparent !important;
+    transition: all 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: none !important;
+}
+
+.nav-btn:hover {
+    background-color: var(--primary-yellow) !important;
+    border-color: var(--primary-yellow) !important;
+    color: black !important;
+    border-width: 2px !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 230, 109, 0.3) !important;
+}
+
+.nav-btn-active {
+    background-color: var(--primary-yellow) !important;
+    border-width: 2px !important;
+    border-color: var(--primary-yellow) !important;
+    color: black !important;
+    box-shadow: 0 4px 8px rgba(255, 230, 109, 0.4) !important;
 }
 
 .navbar-dark .navbar-nav .nav-link {
     transition: all 0.3s ease;
 }
 
-.navbar-dark .navbar-nav .nav-link:hover {
-    transform: translateY(-2px);
-}
-
-.navbar-dark .navbar-nav .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-}
-
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--medium-grey) 0%, var(--black) 100%);
     color: white;
 }
 
@@ -110,16 +214,39 @@ main {
     font-weight: 500;
 }
 
+.hero-section .btn-primary {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: black;
+}
+
+.hero-section .btn-primary:hover {
+    background-color: var(--dark-yellow);
+    border-color: var(--dark-yellow);
+}
+
+.hero-section .btn-outline-primary {
+    border-color: var(--primary-yellow);
+    color: var(--primary-yellow);
+}
+
+.hero-section .btn-outline-primary:hover {
+    background-color: var(--primary-yellow);
+    color: black;
+}
+
 /* Category Cards */
 .category-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--light-grey);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    background-color: var(--medium-grey);
 }
 
 .category-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(255, 230, 109, 0.3);
+    border-color: var(--primary-yellow);
 }
 
 .category-card i {
@@ -128,6 +255,25 @@ main {
 
 .category-card:hover i {
     transform: scale(1.1);
+}
+
+.category-card .btn-primary {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: black;
+}
+
+.category-card .btn-success,
+.category-card .btn-warning,
+.category-card .btn-info {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: black;
+}
+
+.category-card .btn:hover {
+    background-color: var(--dark-yellow);
+    border-color: var(--dark-yellow);
 }
 
 /* Book Cards */
@@ -152,20 +298,96 @@ main {
     object-fit: cover;
 }
 
+.book-card-tall {
+    min-height: 450px;
+}
+
+.book-card-tall .card-body {
+    padding: 1.5rem;
+}
+
+.book-card-tall .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Book Card Styled - Similar to Category Cards */
+.book-card-styled {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--light-grey) !important;
+    min-height: 550px;
+    background-color: var(--medium-grey);
+}
+
+.book-card-styled:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(255, 230, 109, 0.3);
+    border-color: var(--primary-yellow) !important;
+}
+
+.book-cover-placeholder {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--light-grey);
+}
+
+.book-card-styled .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    min-height: 2.6rem;
+}
+
+.book-card-styled .btn-danger {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: black;
+}
+
+.book-card-styled .btn-danger:hover {
+    background-color: var(--dark-yellow);
+    border-color: var(--dark-yellow);
+}
+
+.book-rating {
+    font-size: 0.85rem;
+    color: var(--primary-yellow);
+}
+
+.book-rating i {
+    margin-right: 2px;
+}
+
+/* Featured Books Section Dark Background */
+.featured-books {
+    background-color: var(--dark-grey) !important;
+}
+
+.books-listing {
+    background-color: var(--dark-grey) !important;
+}
+
 /* Page Header */
 .page-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--medium-grey) 0%, var(--black) 100%);
     color: white;
 }
 
 /* Featured Books Section */
 .featured-books {
-    background-color: #f8f9fa;
+    background-color: var(--dark-grey);
 }
 
 /* About Section */
 .about-section {
-    background-color: #fff;
+    background-color: var(--medium-grey);
+    color: var(--text-light);
+}
+
+.categories-section {
+    background-color: var(--dark-grey);
 }
 
 /* Footer */

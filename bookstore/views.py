@@ -55,6 +55,17 @@ def audiobooks(request):
     return render(request, "bookstore/category.html", context)
 
 
+def toys_games(request):
+    """View for the toys and games page."""
+    toys_games_list = Book.objects.filter(category="toys_games", in_stock=True)
+    context = {
+        "books": toys_games_list,
+        "category_title": "Toys & Games",
+        "category_description": "Fun toys and games for all ages.",
+    }
+    return render(request, "bookstore/category.html", context)
+
+
 def cart(request):
     """View for the shopping cart page."""
     cart_items = request.session.get("cart", {})

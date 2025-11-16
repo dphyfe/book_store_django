@@ -9,6 +9,7 @@ class Book(models.Model):
         ("nonfiction", "Non-Fiction"),
         ("teens_kids", "Teens/Kids"),
         ("audiobook", "Audiobook"),
+        ("toys_games", "Toys & Games"),
     ]
 
     title = models.CharField(max_length=200)
