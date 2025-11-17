@@ -7,8 +7,8 @@ def home(request):
     # Get The Shining by Stephen King
     stephen_king_book = Book.objects.filter(title="The Shining", author="Stephen King", in_stock=True).first()
 
-    # Get other featured books, excluding The Shining to avoid duplicates
-    other_books = Book.objects.filter(in_stock=True).exclude(id=stephen_king_book.id if stephen_king_book else None)[:7]
+    # Get other featured books from fiction and nonfiction only, excluding The Shining to avoid duplicates
+    other_books = Book.objects.filter(category__in=["fiction", "nonfiction"], in_stock=True).exclude(id=stephen_king_book.id if stephen_king_book else None)[:7]
 
     # Combine them with The Shining first
     featured_books = [stephen_king_book] + list(other_books) if stephen_king_book else list(other_books)[:8]
