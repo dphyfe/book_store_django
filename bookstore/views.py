@@ -121,3 +121,14 @@ def remove_from_cart(request, book_id):
 
     request.session["cart"] = cart
     return redirect("bookstore:cart")
+
+
+def book_detail(request, book_id):
+    """View for individual book detail page."""
+    from django.shortcuts import get_object_or_404
+
+    book = get_object_or_404(Book, id=book_id)
+    context = {
+        "book": book,
+    }
+    return render(request, "bookstore/book_detail.html", context)

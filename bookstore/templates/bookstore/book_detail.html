@@ -1,0 +1,108 @@
+{% extends 'bookstore/base.html' %}
+{% load static %}
+
+{% block title %}{{ book.title }} - Burt's Bookshelf{% endblock %}
+
+{% block hero %}
+<!-- Page Header -->
+<section class="page-header bg-light py-4">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'bookstore:home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'bookstore:'|add:book.category %}">{{ book.get_category_display }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<!-- Book Detail Section -->
+<section class="book-detail-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Book Image -->
+            <div class="col-md-4 mb-4">
+                <div class="book-detail-image">
+                    {% if book.cover_image %}
+                    <img src="{{ book.cover_image }}" alt="{{ book.title }}" class="img-fluid rounded shadow-lg">
+                    {% else %}
+                    <div class="book-placeholder-large bg-secondary d-flex align-items-center justify-content-center rounded shadow-lg">
+                        <i class="bi bi-book display-1 text-white"></i>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Book Details -->
+            <div class="col-md-8">
+                <div class="book-detail-info">
+                    <span class="badge bg-secondary mb-3 fs-6">{{ book.get_category_display }}</span>
+
+                    <h1 class="display-5 fw-bold text-white mb-3">{{ book.title }}</h1>
+
+                    <p class="lead text-warning mb-3">by {{ book.author }}</p>
+
+                    <div class="book-rating text-warning mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <span class="text-light ms-2">(5.0)</span>
+                    </div>
+
+                    <h2 class="h1 text-info fw-bold mb-4">${{ book.price }}</h2>
+
+                    <div class="mb-4">
+                        {% if book.in_stock %}
+                        <span class="badge bg-success fs-6">
+                            <i class="bi bi-check-circle"></i> In Stock
+                        </span>
+                        {% else %}
+                        <span class="badge bg-danger fs-6">
+                            <i class="bi bi-x-circle"></i> Out of Stock
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <a href="{% url 'bookstore:add_to_cart' book.id %}" class="btn btn-lg btn-add-to-cart {% if not book.in_stock %}disabled{% endif %}" {% if not book.in_stock %}onclick="return false;" {% endif %}>
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                        </a>
+                    </div>
+
+                    <hr class="border-secondary my-4">
+
+                    <h3 class="h4 text-white mb-3">About This Book</h3>
+                    <p class="text-light lead">{{ book.description }}</p>
+
+                    <hr class="border-secondary my-4">
+
+                    <div class="book-metadata">
+                        <h3 class="h4 text-white mb-3">Book Details</h3>
+                        <table class="table table-dark table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td class="text-warning fw-bold">ISBN:</td>
+                                    <td class="text-light">{{ book.isbn }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-warning fw-bold">Publication Date:</td>
+                                    <td class="text-light">{{ book.publication_date|date:"F d, Y" }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-warning fw-bold">Category:</td>
+                                    <td class="text-light">{{ book.get_category_display }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
