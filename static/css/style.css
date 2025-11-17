@@ -150,11 +150,13 @@ main {
 }
 
 .search-bar-section .form-control-lg {
-    border-radius: 50px 0 0 50px;
+    border-radius: 5px 0 0 5px;
     border-right: none;
-    background-color: var(--medium-grey);
-    border-color: var(--light-grey);
+    background-color: #1a1a2e;
+    border-color: #2d2d2d;
     color: white;
+    padding: 0.4rem 1rem;
+    font-size: 0.95rem;
 }
 
 .search-bar-section .form-control-lg::placeholder {
@@ -162,28 +164,28 @@ main {
 }
 
 .search-bar-section .btn-lg {
-    border-radius: 0 50px 50px 0;
-    padding-left: 25px;
-    padding-right: 25px;
+    border-radius: 0 5px 5px 0;
+    padding: 0.4rem 1.5rem;
+    font-size: 0.95rem;
 }
 
 .search-bar-section .form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
-    border-color: var(--primary-yellow);
-    background-color: var(--medium-grey);
+    box-shadow: 0 0 0 0.25rem rgba(128, 128, 128, 0.25);
+    border-color: #808080;
+    background-color: #1a1a2e;
     color: white;
 }
 
 .btn-search {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: #808080;
+    border-color: #808080;
     color: white;
     font-weight: 600;
 }
 
 .btn-search:hover {
-    background-color: var(--dark-color);
-    border-color: var(--dark-color);
+    background-color: #606060;
+    border-color: #606060;
     color: white;
 }
 
@@ -203,8 +205,8 @@ main {
 }
 
 .btn-cart {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: #808080;
+    border-color: #808080;
     color: white;
 }
 
@@ -318,11 +320,10 @@ main {
 
 /* Hero Section */
 .hero-section-full {
-    background-image: url('https://www.diamondartclub.com/cdn/shop/files/dog-bookshelf-diamond-art-painting-45664738607297.jpg?v=1729980417&width=5592');
-    background-size: 100% auto;
+    background-image: url('https://theshopsatyale.com/wp-content/smush-webp/2017/06/Grey-Matter-Books.jpg.webp');
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: var(--black);
     min-height: 500px;
     position: relative;
     margin: 0 0 3rem 0;
