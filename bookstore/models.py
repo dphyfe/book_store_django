@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Book(models.Model):
@@ -89,3 +90,65 @@ class OrderItem(models.Model):
 
     def get_subtotal(self):
         return self.quantity * self.price
+
+
+class Address(models.Model):
+    """Model representing a user's saved address."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="addresses")
+    label = models.CharField(max_length=50, help_text="e.g., Home, Work")
+    address_line1 = models.CharField(max_length=200)
+    address_line2 = models.CharField(max_length=200, blank=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=50)
+    zip_code = models.CharField(max_length=10)
+    is_default = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.label} - {self.address_line1}, {self.city}"
+
+    class Meta:
+        ordering = ["-is_default", "-created_at"]
+        verbose_name_plural = "Addresses"
+
+
+class PaymentMethod(models.Model):
+    """Model representing a user's saved payment method."""
+
+    CARD_TYPE_CHOICES = [
+        ("visa", "Visa"),
+        ("mastercard", "Mastercard"),
+        ("amex", "American Express"),
+        ("discover", "Discover"),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="payment_methods")
+    card_type = models.CharField(max_length=20, choices=CARD_TYPE_CHOICES)
+    card_last_four = models.CharField(max_length=4)
+    cardholder_name = models.CharField(max_length=100)
+    expiry_month = models.IntegerField()
+    expiry_year = models.IntegerField()
+    is_default = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.get_card_type_display()} ending in {self.card_last_four}"
+
+    class Meta:
+        ordering = ["-is_default", "-created_at"]
+
+
+class Wishlist(models.Model):
+    """Model representing a user's wishlist item."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="wishlist")
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.book.title}"
+
+    class Meta:
+        unique_together = ("user", "book")
+        ordering = ["-added_at"]

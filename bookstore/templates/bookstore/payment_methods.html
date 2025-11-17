@@ -1,0 +1,83 @@
+{% extends 'bookstore/base.html' %}
+
+{% block title %}Payment Methods - Burt's Bookshelf{% endblock %}
+
+{% block hero %}
+<section class="hero-section-full">
+    <div class="hero-logo-container">
+        <div class="hero-logo-box">
+            <i class="bi bi-credit-card"></i>
+            <h1>Payment Methods</h1>
+            <p class="hero-tagline">Manage Your Payment Options</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row mb-4">
+        <div class="col">
+            <a href="{% url 'bookstore:add_payment' %}" class="btn btn-primary" style="background-color: var(--primary-color); border-color: var(--primary-color);">
+                <i class="bi bi-plus-circle"></i> Add New Payment Method
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for payment in payment_methods %}
+        <div class="col-md-6 mb-4">
+            <div class="card bg-dark text-white border-secondary">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title">
+                                {% if payment.card_type == 'visa' %}
+                                <i class="bi bi-credit-card-2-front"></i> Visa
+                                {% elif payment.card_type == 'mastercard' %}
+                                <i class="bi bi-credit-card-2-front"></i> Mastercard
+                                {% elif payment.card_type == 'amex' %}
+                                <i class="bi bi-credit-card"></i> American Express
+                                {% else %}
+                                <i class="bi bi-credit-card"></i> {{ payment.get_card_type_display }}
+                                {% endif %}
+                                {% if payment.is_default %}
+                                <span class="badge bg-primary ms-2" style="background-color: var(--primary-color) !important;">Default</span>
+                                {% endif %}
+                            </h5>
+                            <p class="text-muted mb-1">•••• •••• •••• {{ payment.card_last_four }}</p>
+                            <p class="text-muted mb-0">{{ payment.cardholder_name }}</p>
+                            <p class="text-muted small">Expires: {{ payment.expiry_month|stringformat:"02d" }}/{{ payment.expiry_year }}</p>
+                        </div>
+                        <div>
+                            <a href="{% url 'bookstore:delete_payment' payment.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to remove this payment method?');">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> You don't have any saved payment methods yet. Add one to make checkout faster and more secure!
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="alert alert-secondary mt-4">
+        <i class="bi bi-shield-check"></i> Your payment information is encrypted and secure. We never store your full card number or CVV.
+    </div>
+</div>
+{% endblock %}

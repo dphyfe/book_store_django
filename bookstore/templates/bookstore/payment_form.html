@@ -1,0 +1,42 @@
+{% extends 'bookstore/base.html' %}
+
+{% block title %}Add Payment Method - Burt's Bookshelf{% endblock %}
+
+{% block hero %}
+<section class="hero-section-full">
+    <div class="hero-logo-container">
+        <div class="hero-logo-box">
+            <i class="bi bi-credit-card-2-front"></i>
+            <h1>Add Payment Method</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-dark text-white border-secondary">
+                <div class="card-body p-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <div class="alert alert-secondary mt-3">
+                            <i class="bi bi-shield-lock"></i> Your payment information is securely encrypted. We only store the last 4 digits of your card number.
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary" style="background-color: var(--primary-color); border-color: var(--primary-color);">
+                                <i class="bi bi-check-circle"></i> Save Payment Method
+                            </button>
+                            <a href="{% url 'bookstore:payment_methods' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

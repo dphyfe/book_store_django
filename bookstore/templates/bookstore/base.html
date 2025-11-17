@@ -26,8 +26,8 @@
             <div class="d-flex align-items-center justify-content-end">
                 <!-- Search Bar -->
                 <div class="search-bar-right me-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control form-control-lg me-2" type="search" placeholder="Search for books, authors, or categories..." aria-label="Search">
+                    <form class="d-flex" role="search" action="{% url 'bookstore:search' %}" method="get">
+                        <input class="form-control form-control-lg me-2" type="search" name="q" placeholder="Search for books, authors, or categories..." aria-label="Search">
                         <button class="btn btn-search btn-lg" type="submit">
                             <i class="bi bi-search"></i> Search
                         </button>
@@ -41,22 +41,35 @@
                             <i class="bi bi-person-circle"></i> MY ACCOUNT
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
-                            <li><a class="dropdown-item" href="#"><strong>Sign In</strong></a></li>
-                            <li><a class="dropdown-item" href="#">Create an Account</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a class="dropdown-item" href="{% url 'bookstore:manage_account' %}"><strong>{{ user.first_name }} {{ user.last_name }}</strong></a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Manage Account</a></li>
-                            <li><a class="dropdown-item" href="#">Order Status</a></li>
-                            <li><a class="dropdown-item" href="#">My Digital Library</a></li>
-                            <li><a class="dropdown-item" href="#">Address Book</a></li>
-                            <li><a class="dropdown-item" href="#">Payment Methods</a></li>
+                            <li><a class="dropdown-item" href="{% url 'bookstore:manage_account' %}"><i class="bi bi-person"></i> Manage Account</a></li>
+                            <li><a class="dropdown-item" href="{% url 'bookstore:order_status' %}"><i class="bi bi-box-seam"></i> Order Status</a></li>
+                            <li><a class="dropdown-item" href="{% url 'bookstore:address_book' %}"><i class="bi bi-geo-alt"></i> Address Book</a></li>
+                            <li><a class="dropdown-item" href="{% url 'bookstore:payment_methods' %}"><i class="bi bi-credit-card"></i> Payment Methods</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'bookstore:logout' %}"><i class="bi bi-box-arrow-right"></i> Sign Out</a></li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="{% url 'bookstore:login' %}"><strong><i class="bi bi-box-arrow-in-right"></i> Sign In</strong></a></li>
+                            <li><a class="dropdown-item" href="{% url 'bookstore:register' %}"><i class="bi bi-person-plus"></i> Create an Account</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                     <!-- Wishlist Icon -->
-                    <button class="btn btn-account btn-lg ms-2" type="button">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'bookstore:wishlist' %}" class="btn btn-account btn-lg ms-2">
                         <i class="bi bi-heart"></i>
-                    </button>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'bookstore:login' %}" class="btn btn-account btn-lg ms-2">
+                        <i class="bi bi-heart"></i>
+                    </a>
+                    {% endif %}
                     <!-- Shopping Cart -->
                     <a href="{% url 'bookstore:cart' %}" class="btn btn-cart btn-lg position-relative ms-2">
                         <i class="bi bi-cart3"></i>
@@ -123,9 +136,9 @@
     <!-- Main Content with Sidebar -->
     <div class="content-wrapper">
         <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
+        <aside class="sidebar collapsed" id="sidebar">
             <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
-                <i class="bi bi-chevron-left"></i>
+                <i class="bi bi-chevron-right"></i>
             </button>
             <div class="sidebar-section">
                 <h3 class="sidebar-heading">BROWSE FICTION</h3>

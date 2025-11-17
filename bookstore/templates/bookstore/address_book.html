@@ -1,0 +1,74 @@
+{% extends 'bookstore/base.html' %}
+
+{% block title %}Address Book - Burt's Bookshelf{% endblock %}
+
+{% block hero %}
+<section class="hero-section-full">
+    <div class="hero-logo-container">
+        <div class="hero-logo-box">
+            <i class="bi bi-geo-alt"></i>
+            <h1>Address Book</h1>
+            <p class="hero-tagline">Manage Your Shipping Addresses</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row mb-4">
+        <div class="col">
+            <a href="{% url 'bookstore:add_address' %}" class="btn btn-primary" style="background-color: var(--primary-color); border-color: var(--primary-color);">
+                <i class="bi bi-plus-circle"></i> Add New Address
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for address in addresses %}
+        <div class="col-md-6 mb-4">
+            <div class="card bg-dark text-white border-secondary">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h5 class="card-title">
+                            {{ address.label }}
+                            {% if address.is_default %}
+                            <span class="badge bg-primary ms-2" style="background-color: var(--primary-color) !important;">Default</span>
+                            {% endif %}
+                        </h5>
+                        <div>
+                            <a href="{% url 'bookstore:edit_address' address.id %}" class="btn btn-sm btn-outline-light me-1">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'bookstore:delete_address' address.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this address?');">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-0">
+                        {{ address.address_line1 }}<br>
+                        {% if address.address_line2 %}{{ address.address_line2 }}<br>{% endif %}
+                        {{ address.city }}, {{ address.state }} {{ address.zip_code }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> You don't have any saved addresses yet. Add one to make checkout faster!
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

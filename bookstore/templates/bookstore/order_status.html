@@ -1,0 +1,74 @@
+{% extends 'bookstore/base.html' %}
+
+{% block title %}Order Status - Burt's Bookshelf{% endblock %}
+
+{% block hero %}
+<section class="hero-section-full">
+    <div class="hero-logo-container">
+        <div class="hero-logo-box">
+            <i class="bi bi-box-seam"></i>
+            <h1>My Orders</h1>
+            <p class="hero-tagline">Track Your Purchases</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    {% if orders %}
+    {% for order in orders %}
+    <div class="card bg-dark text-white border-secondary mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="card-title">Order #{{ order.id }}</h5>
+                    <p class="text-muted">
+                        Placed on {{ order.created_at|date:"F d, Y" }} at {{ order.created_at|time:"g:i A" }}
+                    </p>
+                    <p class="mb-2">
+                        <strong>Status:</strong>
+                        <span class="badge {% if order.status == 'completed' or order.status == 'delivered' %}bg-success{% elif order.status == 'shipped' or order.status == 'ready' %}bg-info{% elif order.status == 'processing' %}bg-warning{% else %}bg-secondary{% endif %}">
+                            {{ order.get_status_display }}
+                        </span>
+                    </p>
+                    <p class="mb-2"><strong>Delivery:</strong> {{ order.get_delivery_method_display }}</p>
+                    {% if order.delivery_method == 'delivery' and order.address %}
+                    <p class="text-muted small mb-0">
+                        Shipping to: {{ order.address }}, {{ order.city }}, {{ order.state }} {{ order.zip_code }}
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="col-md-4 text-end">
+                    <h4 class="text-info">${{ order.total_amount }}</h4>
+                    <a href="{% url 'bookstore:order_confirmation' order.id %}" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-eye"></i> View Details
+                    </a>
+                </div>
+            </div>
+
+            <hr class="border-secondary">
+
+            <div class="row">
+                {% for item in order.items.all %}
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex">
+                        <div class="flex-grow-1">
+                            <strong>{{ item.book.title }}</strong><br>
+                            <small class="text-muted">by {{ item.book.author }}</small><br>
+                            <small class="text-info">Qty: {{ item.quantity }} × ${{ item.price }} = ${{ item.get_subtotal }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> You haven't placed any orders yet. <a href="{% url 'bookstore:home' %}" class="alert-link">Start shopping now!</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

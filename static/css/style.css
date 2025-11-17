@@ -8,10 +8,10 @@
     --accent-blue: #00B4D8;
     --accent-blue-light: #48CAE4;
     --accent-blue-dark: #0096C7;
-    --black: #000000;
-    --dark-grey: #1a1a1a;
-    --medium-grey: #2d2d2d;
-    --light-grey: #4a4a4a;
+    --black: #1a1a2e;
+    --dark-grey: #16213e;
+    --medium-grey: #0f3460;
+    --light-grey: #1a365d;
     --text-light: #e0e0e0;
 }
 
@@ -21,7 +21,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: var(--dark-grey);
+    background-color: #0a192f;
 }
 
 main {
@@ -86,8 +86,7 @@ main {
 }
 
 .sidebar.collapsed .sidebar-toggle {
-    right: -20px;
-    left: 0;
+    left: 10px;
 }
 
 .sidebar-section {
@@ -136,7 +135,7 @@ main {
 /* Search Bar Section */
 .search-bar-section {
     background-color: var(--black) !important;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid #808080;
     position: relative;
     z-index: 1050;
 }
@@ -189,16 +188,18 @@ main {
 }
 
 .btn-account {
-    background-color: transparent;
-    border: 1px solid var(--accent-blue);
-    color: var(--accent-blue);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    color: white;
     font-weight: 600;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .btn-account:hover {
-    background-color: var(--accent-blue);
-    border-color: var(--accent-blue);
-    color: white;
+    background-color: white;
+    border-color: white;
+    color: black;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
 }
 
 .btn-cart {
@@ -266,12 +267,12 @@ main {
 
 .navbar-custom {
     background-color: var(--black) !important;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid #808080;
     padding: 1rem 0;
 }
 
 .navbar-brand {
-    color: var(--primary-color) !important;
+    color: #b8b8b8 !important;
     font-size: 2rem;
     font-weight: bold;
     text-decoration: none;
@@ -284,7 +285,7 @@ main {
 }
 
 .navbar-brand:hover {
-    color: var(--light-color) !important;
+    color: #d0d0d0 !important;
 }
 
 .nav-link-simple {
@@ -298,11 +299,11 @@ main {
 }
 
 .nav-link-simple:hover {
-    color: var(--primary-color) !important;
+    color: #b8b8b8 !important;
 }
 
 .nav-link-simple.active {
-    color: var(--primary-color) !important;
+    color: #b8b8b8 !important;
 }
 
 .nav-separator {
@@ -325,7 +326,7 @@ main {
     position: relative;
     margin: 0 0 3rem 0;
     padding: 0 !important;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid #808080;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -338,7 +339,7 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 1;
 }
 
@@ -353,7 +354,7 @@ main {
 
 .hero-logo-box {
     background: rgba(0, 0, 0, 0.85);
-    border: 3px solid var(--primary-color);
+    border: 3px solid #808080;
     border-radius: 15px;
     padding: 3rem 5rem;
     text-align: center;
@@ -712,13 +713,14 @@ main {
 
 /* Seasonal Section */
 .seasonal-section {
-    background-image: url('https://thepedalproject.org/wp-content/uploads/2020/10/pexels-pixabay-33109-1024x683.jpg');
+    background-image: url('https://t3.ftcdn.net/jpg/10/20/58/38/360_F_1020583825_gL91aR3vGpGT7tjJwrb5K90pHfSJWjC8.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center bottom;
     background-repeat: no-repeat;
     position: relative;
     margin: 0 0 3rem 0;
-    padding: 4rem 0 !important;
+    padding: 8rem 0 !important;
+    min-height: 600px;
     border-bottom: 3px solid var(--primary-color);
 }
 

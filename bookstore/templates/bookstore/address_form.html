@@ -1,0 +1,38 @@
+{% extends 'bookstore/base.html' %}
+
+{% block title %}{% if address %}Edit{% else %}Add{% endif %} Address - Burt's Bookshelf{% endblock %}
+
+{% block hero %}
+<section class="hero-section-full">
+    <div class="hero-logo-container">
+        <div class="hero-logo-box">
+            <i class="bi bi-geo-alt"></i>
+            <h1>{% if address %}Edit{% else %}Add{% endif %} Address</h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-dark text-white border-secondary">
+                <div class="card-body p-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary" style="background-color: var(--primary-color); border-color: var(--primary-color);">
+                                <i class="bi bi-check-circle"></i> Save Address
+                            </button>
+                            <a href="{% url 'bookstore:address_book' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

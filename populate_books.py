@@ -27,6 +27,7 @@ books_data = [
         "isbn": "9780525559474",
         "publication_date": date(2020, 8, 13),
         "in_stock": True,
+        "cover_image": "https://m.media-amazon.com/images/I/71aiTCR69YS._AC_UF1000,1000_QL80_.jpg",
     },
     {
         "title": "Where the Crawdads Sing",
@@ -57,6 +58,7 @@ books_data = [
         "isbn": "9780593135204",
         "publication_date": date(2021, 5, 4),
         "in_stock": True,
+        "cover_image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1597695864i/54493401.jpg",
     },
     {
         "title": "The Silent Patient",
@@ -97,6 +99,7 @@ books_data = [
         "isbn": "9780316556347",
         "publication_date": date(2018, 4, 10),
         "in_stock": True,
+        "cover_image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1565909496i/35959740.jpg",
     },
     # Non-Fiction Books
     {
@@ -108,6 +111,7 @@ books_data = [
         "isbn": "9780735211292",
         "publication_date": date(2018, 10, 16),
         "in_stock": True,
+        "cover_image": "https://m.media-amazon.com/images/I/81YkqyaFVEL._AC_UF1000,1000_QL80_.jpg",
     },
     {
         "title": "Educated",
@@ -118,6 +122,7 @@ books_data = [
         "isbn": "9780399590504",
         "publication_date": date(2018, 2, 20),
         "in_stock": True,
+        "cover_image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1506026635i/35133922.jpg",
     },
     {
         "title": "Sapiens: A Brief History of Humankind",
@@ -128,6 +133,7 @@ books_data = [
         "isbn": "9780062316097",
         "publication_date": date(2015, 2, 10),
         "in_stock": True,
+        "cover_image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1703329310i/23692271.jpg",
     },
     {
         "title": "The Body Keeps the Score",
@@ -138,6 +144,7 @@ books_data = [
         "isbn": "9780143127741",
         "publication_date": date(2015, 9, 8),
         "in_stock": True,
+        "cover_image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1594559067i/18693771.jpg",
     },
     {
         "title": "Thinking, Fast and Slow",
@@ -158,6 +165,7 @@ books_data = [
         "isbn": "9780307743657",
         "publication_date": date(1977, 1, 28),
         "in_stock": True,
+        "cover_image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1353277730i/11588.jpg",
     },
     {
         "title": "The Power of Habit",
@@ -178,6 +186,7 @@ books_data = [
         "isbn": "9781400052189",
         "publication_date": date(2010, 2, 2),
         "in_stock": True,
+        "cover_image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1327878144i/6493208.jpg",
     },
     # Teens/Kids Books
     {
@@ -310,6 +319,7 @@ books_data = [
         "isbn": "9780147524393",
         "publication_date": date(2013, 6, 4),
         "in_stock": True,
+        "cover_image": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1657781256i/61439040.jpg",
     },
     {
         "title": "The Alchemist (Audiobook)",
