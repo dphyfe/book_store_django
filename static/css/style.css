@@ -2,9 +2,12 @@
 
 /* Color Scheme Variables */
 :root {
-    --primary-yellow: #FFE66D;
-    --light-yellow: #FFF4A3;
-    --dark-yellow: #F4D03F;
+    --primary-color: #FF6B35;
+    --light-color: #FF8C61;
+    --dark-color: #E85A2F;
+    --accent-blue: #00B4D8;
+    --accent-blue-light: #48CAE4;
+    --accent-blue-dark: #0096C7;
     --black: #000000;
     --dark-grey: #1a1a1a;
     --medium-grey: #2d2d2d;
@@ -63,7 +66,7 @@ main {
     right: -20px;
     width: 40px;
     height: 40px;
-    background-color: var(--primary-yellow);
+    background-color: var(--primary-color);
     border: 2px solid var(--dark-grey);
     border-radius: 50%;
     display: flex;
@@ -72,13 +75,13 @@ main {
     cursor: pointer;
     z-index: 100;
     transition: all 0.3s ease;
-    color: black;
+    color: white;
     font-size: 1.2rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-toggle:hover {
-    background-color: var(--dark-yellow);
+    background-color: var(--dark-color);
     transform: scale(1.1);
 }
 
@@ -121,7 +124,7 @@ main {
 }
 
 .sidebar-links a:hover {
-    color: var(--primary-yellow);
+    color: var(--accent-blue);
 }
 
 /* Main Content Area */
@@ -133,7 +136,7 @@ main {
 /* Search Bar Section */
 .search-bar-section {
     background-color: var(--black) !important;
-    border-bottom: 3px solid var(--primary-yellow);
+    border-bottom: 3px solid var(--primary-color);
     position: relative;
     z-index: 1050;
 }
@@ -173,46 +176,46 @@ main {
 }
 
 .btn-search {
-    background-color: var(--primary-yellow);
-    border-color: var(--primary-yellow);
-    color: black;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
     font-weight: 600;
 }
 
 .btn-search:hover {
-    background-color: var(--dark-yellow);
-    border-color: var(--dark-yellow);
-    color: black;
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
+    color: white;
 }
 
 .btn-account {
     background-color: transparent;
-    border: 1px solid var(--primary-yellow);
-    color: var(--primary-yellow);
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
     font-weight: 600;
 }
 
 .btn-account:hover {
-    background-color: var(--primary-yellow);
-    border-color: var(--primary-yellow);
-    color: black;
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
 }
 
 .btn-cart {
-    background-color: var(--primary-yellow);
-    border-color: var(--primary-yellow);
-    color: black;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
 }
 
 .btn-cart:hover {
-    background-color: var(--dark-yellow);
-    border-color: var(--dark-yellow);
-    color: black;
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
+    color: white;
 }
 
 .badge-cart-count {
-    background-color: black !important;
-    color: var(--primary-yellow) !important;
+    background-color: var(--accent-blue) !important;
+    color: white !important;
 }
 
 /* Account Dropdown */
@@ -263,12 +266,12 @@ main {
 
 .navbar-custom {
     background-color: var(--black) !important;
-    border-bottom: 3px solid var(--primary-yellow);
+    border-bottom: 3px solid var(--primary-color);
     padding: 1rem 0;
 }
 
 .navbar-brand {
-    color: var(--primary-yellow) !important;
+    color: var(--primary-color) !important;
     font-size: 2rem;
     font-weight: bold;
     text-decoration: none;
@@ -281,7 +284,7 @@ main {
 }
 
 .navbar-brand:hover {
-    color: var(--light-yellow) !important;
+    color: var(--light-color) !important;
 }
 
 .nav-link-simple {
@@ -295,11 +298,11 @@ main {
 }
 
 .nav-link-simple:hover {
-    color: var(--primary-yellow) !important;
+    color: var(--primary-color) !important;
 }
 
 .nav-link-simple.active {
-    color: var(--primary-yellow) !important;
+    color: var(--primary-color) !important;
 }
 
 .nav-separator {
@@ -318,11 +321,14 @@ main {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 300px;
+    min-height: 500px;
     position: relative;
     margin: 0 0 3rem 0;
     padding: 0 !important;
-    border-bottom: 3px solid var(--primary-yellow);
+    border-bottom: 3px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-section-full::before {
@@ -334,6 +340,48 @@ main {
     bottom: 0;
     background: rgba(0, 0, 0, 0.6);
     z-index: 1;
+}
+
+.hero-logo-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.hero-logo-box {
+    background: rgba(0, 0, 0, 0.85);
+    border: 3px solid var(--primary-color);
+    border-radius: 15px;
+    padding: 3rem 5rem;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(255, 127, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.hero-logo-box i {
+    font-size: 5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.hero-logo-box h1 {
+    color: white;
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-tagline {
+    color: var(--accent-blue-light);
+    font-size: 1.3rem;
+    margin: 1rem 0 0 0;
+    font-style: italic;
+    letter-spacing: 1px;
 }
 
 .hero-section-full .container {
@@ -377,8 +425,8 @@ main {
 
 .category-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 8px 20px rgba(255, 230, 109, 0.3);
-    border-color: var(--primary-yellow);
+    box-shadow: 0 8px 20px rgba(255, 127, 0, 0.4);
+    border-color: var(--primary-color);
 }
 
 .category-card i {
@@ -390,22 +438,22 @@ main {
 }
 
 .category-card .btn-primary {
-    background-color: var(--primary-yellow);
-    border-color: var(--primary-yellow);
-    color: black;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
 }
 
 .category-card .btn-success,
 .category-card .btn-warning,
 .category-card .btn-info {
-    background-color: var(--primary-yellow);
-    border-color: var(--primary-yellow);
-    color: black;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
 }
 
 .category-card .btn:hover {
-    background-color: var(--dark-yellow);
-    border-color: var(--dark-yellow);
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
 }
 
 /* Book Cards */
@@ -452,9 +500,9 @@ main {
 }
 
 .book-card-styled:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(255, 230, 109, 0.3);
-    border-color: var(--primary-yellow) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 127, 0, 0.4);
+    border-color: var(--primary-color) !important;
 }
 
 .book-cover-placeholder {
@@ -482,19 +530,19 @@ main {
 }
 
 .book-card-styled .btn-danger {
-    background-color: var(--primary-yellow);
-    border-color: var(--primary-yellow);
-    color: black;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
 }
 
 .book-card-styled .btn-danger:hover {
-    background-color: var(--dark-yellow);
-    border-color: var(--dark-yellow);
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
 }
 
 .book-rating {
     font-size: 0.85rem;
-    color: var(--primary-yellow);
+    color: var(--primary-color);
 }
 
 .book-rating i {
@@ -549,18 +597,18 @@ main {
 }
 
 .btn-add-to-cart {
-    background-color: var(--primary-yellow);
-    border-color: var(--primary-yellow);
-    color: black;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
     font-weight: 600;
     padding: 12px 40px;
     font-size: 1.1rem;
 }
 
 .btn-add-to-cart:hover {
-    background-color: var(--dark-yellow);
-    border-color: var(--dark-yellow);
-    color: black;
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
+    color: white;
 }
 
 .btn-add-to-cart.disabled {
@@ -599,6 +647,65 @@ main {
     color: inherit;
 }
 
+/* Checkout Page */
+.checkout-section {
+    background-color: var(--dark-grey);
+    min-height: 80vh;
+}
+
+.checkout-form,
+.order-summary {
+    border: 1px solid var(--light-grey);
+}
+
+.checkout-section .form-control,
+.checkout-section .form-select {
+    background-color: var(--medium-grey);
+    border-color: var(--light-grey);
+    color: white;
+}
+
+.checkout-section .form-control:focus,
+.checkout-section .form-select:focus {
+    background-color: var(--medium-grey);
+    border-color: var(--accent-blue);
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(0, 153, 255, 0.25);
+}
+
+.checkout-section .form-check-input {
+    background-color: var(--medium-grey);
+    border-color: var(--light-grey);
+}
+
+.checkout-section .form-check-input:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+.btn-checkout {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+.btn-checkout:hover {
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
+    color: white;
+}
+
+/* Confirmation Page */
+.confirmation-section {
+    background-color: var(--dark-grey);
+    min-height: 80vh;
+}
+
+.confirmation-card {
+    border: 2px solid var(--primary-color);
+}
+
 .categories-section {
     background-color: var(--dark-grey);
 }
@@ -612,7 +719,7 @@ main {
     position: relative;
     margin: 0 0 3rem 0;
     padding: 4rem 0 !important;
-    border-bottom: 3px solid var(--primary-yellow);
+    border-bottom: 3px solid var(--primary-color);
 }
 
 .seasonal-section::before {
@@ -632,7 +739,7 @@ main {
 }
 
 .seasonal-section h2 {
-    color: var(--primary-yellow);
+    color: var(--primary-color);
     font-weight: bold;
 }
 
@@ -642,20 +749,20 @@ main {
 }
 
 .seasonal-card:hover {
-    border-color: var(--primary-yellow) !important;
-    box-shadow: 0 10px 30px rgba(255, 230, 109, 0.4) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 10px 30px rgba(255, 127, 0, 0.5) !important;
 }
 
 .seasonal-card .btn-primary {
-    background-color: var(--primary-yellow);
-    border-color: var(--primary-yellow);
-    color: black;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
     font-weight: 600;
 }
 
 .seasonal-card .btn-primary:hover {
-    background-color: var(--dark-yellow);
-    border-color: var(--dark-yellow);
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
 }
 
 /* Footer */

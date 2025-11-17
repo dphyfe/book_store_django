@@ -132,3 +132,73 @@ def book_detail(request, book_id):
         "book": book,
     }
     return render(request, "bookstore/book_detail.html", context)
+
+
+def checkout(request):
+    """View for the checkout page."""
+    from django.shortcuts import redirect
+    from .models import Order, OrderItem
+
+    cart = request.session.get("cart", {})
+    if not cart:
+        return redirect("bookstore:cart")
+
+    # Calculate cart details
+    books_in_cart = []
+    total_price = 0
+    for book_id, quantity in cart.items():
+        try:
+            book = Book.objects.get(id=book_id)
+            subtotal = float(book.price) * quantity
+            books_in_cart.append({"book": book, "quantity": quantity, "subtotal": subtotal})
+            total_price += subtotal
+        except Book.DoesNotExist:
+            pass
+
+    if request.method == "POST":
+        # Create order
+        order = Order.objects.create(
+            first_name=request.POST.get("first_name"),
+            last_name=request.POST.get("last_name"),
+            email=request.POST.get("email"),
+            phone=request.POST.get("phone"),
+            delivery_method=request.POST.get("delivery_method"),
+            address=request.POST.get("address", ""),
+            city=request.POST.get("city", ""),
+            state=request.POST.get("state", ""),
+            zip_code=request.POST.get("zip_code", ""),
+            total_amount=total_price,
+            notes=request.POST.get("notes", ""),
+        )
+
+        # Create order items
+        for item in books_in_cart:
+            OrderItem.objects.create(
+                order=order,
+                book=item["book"],
+                quantity=item["quantity"],
+                price=item["book"].price,
+            )
+
+        # Clear cart
+        request.session["cart"] = {}
+
+        return redirect("bookstore:order_confirmation", order_id=order.id)
+
+    context = {
+        "cart_items": books_in_cart,
+        "total_price": total_price,
+    }
+    return render(request, "bookstore/checkout.html", context)
+
+
+def order_confirmation(request, order_id):
+    """View for order confirmation page."""
+    from django.shortcuts import get_object_or_404
+    from .models import Order
+
+    order = get_object_or_404(Order, id=order_id)
+    context = {
+        "order": order,
+    }
+    return render(request, "bookstore/order_confirmation.html", context)

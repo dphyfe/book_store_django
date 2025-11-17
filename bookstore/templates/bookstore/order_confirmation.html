@@ -1,0 +1,80 @@
+{% extends 'bookstore/base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmation - Burt's Bookshelf{% endblock %}
+
+{% block hero %}
+<section class="page-header bg-light py-4">
+    <div class="container">
+        <h1 class="display-5 fw-bold text-success"><i class="bi bi-check-circle-fill"></i> Order Confirmed!</h1>
+        <p class="lead">Thank you for your order</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="confirmation-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="confirmation-card bg-dark p-5 rounded shadow-lg text-center">
+                    <i class="bi bi-check-circle text-success" style="font-size: 5rem;"></i>
+                    <h2 class="text-white mt-4 mb-3">Your Order Has Been Placed!</h2>
+                    <p class="lead text-light mb-4">Order #{{ order.id }}</p>
+
+                    <div class="alert alert-info mb-4">
+                        <i class="bi bi-envelope"></i> A confirmation email has been sent to <strong>{{ order.email }}</strong>
+                    </div>
+
+                    <div class="order-details text-start mb-4">
+                        <h3 class="h5 text-warning mb-3">Order Details</h3>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p class="text-light mb-2"><strong>Customer:</strong><br>{{ order.first_name }} {{ order.last_name }}</p>
+                                <p class="text-light mb-2"><strong>Phone:</strong><br>{{ order.phone }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-light mb-2"><strong>Order Date:</strong><br>{{ order.created_at|date:"F d, Y - h:i A" }}</p>
+                                <p class="text-light mb-2"><strong>Total:</strong><br><span class="text-info h5">${{ order.total_amount }}</span></p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <p class="text-light mb-2"><strong>Delivery Method:</strong></p>
+                            {% if order.delivery_method == 'delivery' %}
+                            <div class="alert alert-warning">
+                                <i class="bi bi-truck"></i> <strong>Home Delivery</strong><br>
+                                {{ order.address }}<br>
+                                {{ order.city }}, {{ order.state }} {{ order.zip_code }}
+                            </div>
+                            {% else %}
+                            <div class="alert alert-success">
+                                <i class="bi bi-shop"></i> <strong>Store Pickup</strong><br>
+                                Burt's Bookshelf<br>
+                                123 Book Street, Reading City, RC 12345<br>
+                                <small>You will receive an email when your order is ready for pickup</small>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <h4 class="h6 text-warning mb-3">Items Ordered:</h4>
+                        {% for item in order.items.all %}
+                        <div class="d-flex mb-2 pb-2 border-bottom border-secondary">
+                            <span class="text-light flex-grow-1">{{ item.quantity }}x {{ item.book.title }}</span>
+                            <span class="text-info">${{ item.price }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="{% url 'bookstore:home' %}" class="btn btn-lg btn-checkout me-2">
+                            <i class="bi bi-house"></i> Return to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
