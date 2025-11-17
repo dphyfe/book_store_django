@@ -72,42 +72,44 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid px-4">
-            <a class="navbar-brand fs-4 fw-bold" href="{% url 'bookstore:home' %}">
+            <a class="navbar-brand" href="{% url 'bookstore:home' %}">
                 <i class="bi bi-book"></i> Burt's Bookshelf
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto d-flex gap-3">
+                <ul class="navbar-nav mx-auto d-flex justify-content-center align-items-center gap-1">
                     <li class="nav-item">
-                        <a class="btn nav-btn {% if request.resolver_match.url_name == 'home' %}nav-btn-active{% endif %}" href="{% url 'bookstore:home' %}">
-                            <i class="bi bi-house-door"></i> HOME
+                        <a class="nav-link-simple {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'bookstore:home' %}">
+                            HOME
                         </a>
                     </li>
+                    <li class="nav-item nav-separator">|</li>
                     <li class="nav-item">
-                        <a class="btn nav-btn {% if request.resolver_match.url_name == 'fiction' %}nav-btn-active{% endif %}" href="{% url 'bookstore:fiction' %}">
-                            <i class="bi bi-book-half"></i> FICTION
+                        <a class="nav-link-simple {% if request.resolver_match.url_name == 'fiction' %}active{% endif %}" href="{% url 'bookstore:fiction' %}">
+                            FICTION
                         </a>
                     </li>
+                    <li class="nav-item nav-separator">|</li>
                     <li class="nav-item">
-                        <a class="btn nav-btn {% if request.resolver_match.url_name == 'nonfiction' %}nav-btn-active{% endif %}" href="{% url 'bookstore:nonfiction' %}">
-                            <i class="bi bi-journal-text"></i> NON-FICTION
+                        <a class="nav-link-simple {% if request.resolver_match.url_name == 'nonfiction' %}active{% endif %}" href="{% url 'bookstore:nonfiction' %}">
+                            NON-FICTION
                         </a>
                     </li>
+                    <li class="nav-item nav-separator">|</li>
                     <li class="nav-item">
-                        <a class="btn nav-btn {% if request.resolver_match.url_name == 'teens_kids' %}nav-btn-active{% endif %}" href="{% url 'bookstore:teens_kids' %}">
-                            <i class="bi bi-star"></i> TEENS/KIDS
+                        <a class="nav-link-simple {% if request.resolver_match.url_name == 'teens_kids' %}active{% endif %}" href="{% url 'bookstore:teens_kids' %}">
+                            TEENS/KIDS
                         </a>
                     </li>
+                    <li class="nav-item nav-separator">|</li>
                     <li class="nav-item">
-                        <a class="btn nav-btn {% if request.resolver_match.url_name == 'audiobooks' %}nav-btn-active{% endif %}" href="{% url 'bookstore:audiobooks' %}">
-                            <i class="bi bi-headphones"></i> AUDIOBOOKS
+                        <a class="nav-link-simple {% if request.resolver_match.url_name == 'audiobooks' %}active{% endif %}" href="{% url 'bookstore:audiobooks' %}">
+                            AUDIOBOOKS
                         </a>
                     </li>
+                    <li class="nav-item nav-separator">|</li>
                     <li class="nav-item">
-                        <a class="btn nav-btn {% if request.resolver_match.url_name == 'toys_games' %}nav-btn-active{% endif %}" href="{% url 'bookstore:toys_games' %}">
-                            <i class="bi bi-controller"></i> TOYS & GAMES
+                        <a class="nav-link-simple {% if request.resolver_match.url_name == 'toys_games' %}active{% endif %}" href="{% url 'bookstore:toys_games' %}">
+                            TOYS & GAMES
                         </a>
                     </li>
                 </ul>
@@ -115,10 +117,69 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <!-- Hero Section -->
+    {% block hero %}{% endblock %}
+
+    <!-- Main Content with Sidebar -->
+    <div class="content-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-heading">BROWSE FICTION</h3>
+                <ul class="sidebar-links">
+                    <li><a href="{% url 'bookstore:fiction' %}">Bestsellers</a></li>
+                    <li><a href="{% url 'bookstore:fiction' %}">New Releases</a></li>
+                    <li><a href="{% url 'bookstore:fiction' %}">Coming Soon</a></li>
+                    <li><a href="{% url 'bookstore:audiobooks' %}">Fiction Audiobooks</a></li>
+                    <li><a href="{% url 'bookstore:fiction' %}">Fiction eBooks</a></li>
+                    <li><a href="{% url 'bookstore:fiction' %}">Fiction Home</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-heading">NON-FICTION SUBJECTS</h3>
+                <ul class="sidebar-links">
+                    <li><a href="{% url 'bookstore:nonfiction' %}">General Non-Fiction</a></li>
+                    <li><a href="{% url 'bookstore:nonfiction' %}">Biography & Memoir</a></li>
+                    <li><a href="{% url 'bookstore:nonfiction' %}">Business & Economics</a></li>
+                    <li><a href="{% url 'bookstore:nonfiction' %}">History</a></li>
+                    <li><a href="{% url 'bookstore:nonfiction' %}">Science & Nature</a></li>
+                    <li><a href="{% url 'bookstore:nonfiction' %}">Self-Help</a></li>
+                    <li><a href="{% url 'bookstore:nonfiction' %}">Travel</a></li>
+                    <li><a href="{% url 'bookstore:nonfiction' %}">True Crime</a></li>
+                    <li><a href="{% url 'bookstore:nonfiction' %}">Politics & Current Events</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-heading">CUSTOMER FAVORITES</h3>
+                <ul class="sidebar-links">
+                    <li><a href="{% url 'bookstore:home' %}">Bestsellers</a></li>
+                    <li><a href="{% url 'bookstore:teens_kids' %}">Teens & YA Bestsellers</a></li>
+                    <li><a href="{% url 'bookstore:teens_kids' %}">Kids Bestsellers</a></li>
+                    <li><a href="{% url 'bookstore:home' %}">New Releases</a></li>
+                    <li><a href="{% url 'bookstore:home' %}">Coming Soon</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-heading">SPECIAL COLLECTIONS</h3>
+                <ul class="sidebar-links">
+                    <li><a href="{% url 'bookstore:home' %}">Best Books of 2025</a></li>
+                    <li><a href="{% url 'bookstore:home' %}">Holiday Gift Guide</a></li>
+                    <li><a href="{% url 'bookstore:home' %}">Our Monthly Picks</a></li>
+                    <li><a href="{% url 'bookstore:home' %}">Book Awards</a></li>
+                    <li><a href="{% url 'bookstore:toys_games' %}">Boxed Sets</a></li>
+                    <li><a href="{% url 'bookstore:home' %}">Special Editions</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-dark text-white mt-5 py-4">

@@ -3,7 +3,7 @@
 
 {% block title %}{{ category_title }} - Burt's Bookshelf{% endblock %}
 
-{% block content %}
+{% block hero %}
 <!-- Page Header -->
 <section class="page-header bg-light py-5">
     <div class="container">
@@ -11,7 +11,9 @@
         <p class="lead">{{ category_description }}</p>
     </div>
 </section>
+{% endblock %}
 
+{% block content %}
 <!-- Books Listing -->
 <section class="books-listing py-5 bg-dark">
     <div class="container">
