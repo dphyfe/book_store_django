@@ -318,10 +318,11 @@ main {
 
 /* Hero Section */
 .hero-section-full {
-    background-image: url('https://images.squarespace-cdn.com/content/v1/62014b4a67038230f793ec8a/1652834186699-WY2RLHR1K10JNE8P1YNQ/DOG+BOOKSHELF+WITH+BOOKENDS.jpg');
-    background-size: cover;
+    background-image: url('https://www.diamondartclub.com/cdn/shop/files/dog-bookshelf-diamond-art-painting-45664738607297.jpg?v=1729980417&width=5592');
+    background-size: 100% auto;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: var(--black);
     min-height: 500px;
     position: relative;
     margin: 0 0 3rem 0;
@@ -339,7 +340,7 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.1);
     z-index: 1;
 }
 

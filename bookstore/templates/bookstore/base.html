@@ -23,10 +23,12 @@
     <!-- Search Bar Section -->
     <div class="search-bar-section py-3">
         <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-end">
-                <!-- Search Bar -->
-                <div class="search-bar-right me-3">
-                    <form class="d-flex" role="search" action="{% url 'bookstore:search' %}" method="get">
+            <div class="d-flex align-items-center justify-content-between">
+                <!-- Empty spacer for left side -->
+                <div style="width: 200px;"></div>
+                <!-- Search Bar Centered -->
+                <div class="flex-grow-1 d-flex justify-content-center">
+                    <form class="d-flex" role="search" action="{% url 'bookstore:search' %}" method="get" style="width: 100%; max-width: 800px;">
                         <input class="form-control form-control-lg me-2" type="search" name="q" placeholder="Search for books, authors, or categories..." aria-label="Search">
                         <button class="btn btn-search btn-lg" type="submit">
                             <i class="bi bi-search"></i> Search
@@ -34,49 +36,51 @@
                     </form>
                 </div>
                 <!-- Account and Cart at Far Right -->
-                <div class="account-cart-right d-flex align-items-center">
-                    <!-- My Account Dropdown -->
-                    <div class="dropdown" style="position: relative; z-index: 1060;">
-                        <button class="btn btn-account btn-lg dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle"></i> MY ACCOUNT
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
-                            {% if user.is_authenticated %}
-                            <li><a class="dropdown-item" href="{% url 'bookstore:manage_account' %}"><strong>{{ user.first_name }} {{ user.last_name }}</strong></a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'bookstore:manage_account' %}"><i class="bi bi-person"></i> Manage Account</a></li>
-                            <li><a class="dropdown-item" href="{% url 'bookstore:order_status' %}"><i class="bi bi-box-seam"></i> Order Status</a></li>
-                            <li><a class="dropdown-item" href="{% url 'bookstore:address_book' %}"><i class="bi bi-geo-alt"></i> Address Book</a></li>
-                            <li><a class="dropdown-item" href="{% url 'bookstore:payment_methods' %}"><i class="bi bi-credit-card"></i> Payment Methods</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'bookstore:logout' %}"><i class="bi bi-box-arrow-right"></i> Sign Out</a></li>
-                            {% else %}
-                            <li><a class="dropdown-item" href="{% url 'bookstore:login' %}"><strong><i class="bi bi-box-arrow-in-right"></i> Sign In</strong></a></li>
-                            <li><a class="dropdown-item" href="{% url 'bookstore:register' %}"><i class="bi bi-person-plus"></i> Create an Account</a></li>
-                            {% endif %}
-                        </ul>
+                <div class="d-flex align-items-center" style="width: 200px; justify-content: flex-end;">
+                    <div class="account-cart-right d-flex align-items-center">
+                        <!-- My Account Dropdown -->
+                        <div class="dropdown" style="position: relative; z-index: 1060;">
+                            <button class="btn btn-account btn-lg dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i> MY ACCOUNT
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                                {% if user.is_authenticated %}
+                                <li><a class="dropdown-item" href="{% url 'bookstore:manage_account' %}"><strong>{{ user.first_name }} {{ user.last_name }}</strong></a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'bookstore:manage_account' %}"><i class="bi bi-person"></i> Manage Account</a></li>
+                                <li><a class="dropdown-item" href="{% url 'bookstore:order_status' %}"><i class="bi bi-box-seam"></i> Order Status</a></li>
+                                <li><a class="dropdown-item" href="{% url 'bookstore:address_book' %}"><i class="bi bi-geo-alt"></i> Address Book</a></li>
+                                <li><a class="dropdown-item" href="{% url 'bookstore:payment_methods' %}"><i class="bi bi-credit-card"></i> Payment Methods</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'bookstore:logout' %}"><i class="bi bi-box-arrow-right"></i> Sign Out</a></li>
+                                {% else %}
+                                <li><a class="dropdown-item" href="{% url 'bookstore:login' %}"><strong><i class="bi bi-box-arrow-in-right"></i> Sign In</strong></a></li>
+                                <li><a class="dropdown-item" href="{% url 'bookstore:register' %}"><i class="bi bi-person-plus"></i> Create an Account</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <!-- Wishlist Icon -->
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'bookstore:wishlist' %}" class="btn btn-account btn-lg ms-2">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'bookstore:login' %}" class="btn btn-account btn-lg ms-2">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                        {% endif %}
+                        <!-- Shopping Cart -->
+                        <a href="{% url 'bookstore:cart' %}" class="btn btn-cart btn-lg position-relative ms-2">
+                            <i class="bi bi-cart3"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-cart-count" id="cart-count">
+                                {{ cart_count }}
+                            </span>
+                        </a>
                     </div>
-                    <!-- Wishlist Icon -->
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'bookstore:wishlist' %}" class="btn btn-account btn-lg ms-2">
-                        <i class="bi bi-heart"></i>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'bookstore:login' %}" class="btn btn-account btn-lg ms-2">
-                        <i class="bi bi-heart"></i>
-                    </a>
-                    {% endif %}
-                    <!-- Shopping Cart -->
-                    <a href="{% url 'bookstore:cart' %}" class="btn btn-cart btn-lg position-relative ms-2">
-                        <i class="bi bi-cart3"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-cart-count" id="cart-count">
-                            {{ cart_count }}
-                        </span>
-                    </a>
                 </div>
             </div>
         </div>
