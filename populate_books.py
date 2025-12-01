@@ -613,6 +613,7 @@ books_data = [
         "price": 18.99,
         "category": "nonfiction",
         "isbn": "9781524731656",
+        "cover_image": "https://i5.walmartimages.com/seo/Bad-Blood-Secrets-and-Lies-in-a-Silicon-Valley-Startup-Hardcover-by-John-Carreyrou-9781509868063_38499bee-bf0b-4470-a988-4bc71d1fb64f.a099cd3891dc7890c7434fe16de8439f.jpeg",
         "publication_date": date(2018, 5, 21),
         "in_stock": True,
     },
