@@ -1,22 +1,13 @@
 """
-Script to populate the database with mock book data for Burt's Bookshelf
+Script to populate the database with mock book data for Burt's Bookshelf.
 """
 
-import os
-import django
 from datetime import date
+from typing import Any, Dict, Set
 
-# Setup Django environment
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "burts_books.settings")
-django.setup()
-
-from bookstore.models import Book
-
-# Clear existing books
-Book.objects.all().delete()
 
 # Mock book data
-books_data = [
+BOOKS_DATA = [
     # Fiction Books
     {
         "title": "The Midnight Library",
@@ -881,15 +872,89 @@ books_data = [
     },
 ]
 
-# Create books
-created_count = 0
-for book_data in books_data:
-    book = Book.objects.create(**book_data)
-    created_count += 1
-    print(f"Created: {book.title} by {book.author}")
+CATEGORY_LABELS: Dict[str, str] = {
+    "fiction": "Fiction",
+    "nonfiction": "Non-Fiction",
+    "teens_kids": "Teens/Kids",
+    "audiobook": "Audiobooks",
+    "toys_games": "Toys & Games",
+}
 
-print(f"\n✓ Successfully created {created_count} books!")
-print(f"  - Fiction: {Book.objects.filter(category='fiction').count()}")
-print(f"  - Non-Fiction: {Book.objects.filter(category='nonfiction').count()}")
-print(f"  - Teens/Kids: {Book.objects.filter(category='teens_kids').count()}")
-print(f"  - Audiobooks: {Book.objects.filter(category='audiobook').count()}")
+
+def load_books(*, delete_existing: bool = True) -> Dict[str, Any]:
+    """Populate the database with the sample catalog."""
+    from django.apps import apps
+
+    Book = apps.get_model("bookstore", "Book")
+
+    if delete_existing:
+        Book.objects.all().delete()
+
+    created_count = 0
+    updated_count = 0
+    duplicate_count = 0
+    category_counts: Dict[str, int] = {}
+    seen_isbns: Set[str] = set()
+
+    for book_data in BOOKS_DATA:
+        book_fields = dict(book_data)
+        isbn = book_fields.pop("isbn")
+
+        obj, created = Book.objects.update_or_create(
+            isbn=isbn,
+            defaults=book_fields,
+        )
+
+        if created:
+            created_count += 1
+        else:
+            updated_count += 1
+            if isbn in seen_isbns:
+                duplicate_count += 1
+
+        if isbn not in seen_isbns:
+            category = book_data.get("category", "unknown")
+            category_counts[category] = category_counts.get(category, 0) + 1
+            seen_isbns.add(isbn)
+
+    return {
+        "created": created_count,
+        "updated": updated_count,
+        "duplicates": duplicate_count,
+        "categories": category_counts,
+        "total": len(seen_isbns),
+    }
+
+
+if __name__ == "__main__":
+    import os
+    import django
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "burts_books.settings")
+    django.setup()
+
+    summary = load_books(delete_existing=True)
+
+    created = summary.get("created", 0)
+    updated = summary.get("updated", 0)
+    duplicates = summary.get("duplicates", 0)
+
+    print(f"\n✓ Successfully processed {summary.get('total', created)} books!")
+    if created:
+        print(f"  - Created: {created}")
+    if updated:
+        print(f"  - Updated: {updated}")
+    if duplicates:
+        print(f"  - Duplicates encountered: {duplicates}")
+
+    for key, label in CATEGORY_LABELS.items():
+        count = summary["categories"].get(key, 0)
+        print(f"  - {label}: {count}")
+
+    extra_categories = {
+        key: value
+        for key, value in summary["categories"].items()
+        if key not in CATEGORY_LABELS
+    }
+    for key, value in extra_categories.items():
+        print(f"  - {key}: {value}")
