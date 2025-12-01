@@ -2,8 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from django.db.models import Q
 from .models import Book, Address, PaymentMethod, Order, Wishlist
 from .forms import RegisterForm, LoginForm, ProfileUpdateForm, AddressForm, PaymentMethodForm
+from .serializers import BookSerializer
 
 
 def search(request):
@@ -390,3 +395,60 @@ def remove_from_wishlist(request, book_id):
     wishlist_item.delete()
     messages.success(request, f"{book_title} removed from your wishlist.")
     return redirect("bookstore:wishlist")
+
+
+class BookViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows books to be viewed or edited.
+    """
+
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    @action(detail=False, methods=["get"])
+    def search(self, request):
+        query = request.query_params.get("q", "")
+        if query:
+            books = self.queryset.filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(description__icontains=query)).filter(in_stock=True)
+        else:
+            books = self.queryset.none()
+        serializer = self.get_serializer(books, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"])
+    def featured(self, request):
+        stephen_king_book = Book.objects.filter(title="The Shining", author="Stephen King", in_stock=True).first()
+        other_books = Book.objects.filter(category__in=["fiction", "nonfiction"], in_stock=True).exclude(id=stephen_king_book.id if stephen_king_book else None)[:7]
+        featured_books = [stephen_king_book] + list(other_books) if stephen_king_book else list(other_books)[:8]
+        serializer = self.get_serializer(featured_books, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"])
+    def fiction(self, request):
+        books = self.queryset.filter(category="fiction", in_stock=True)
+        serializer = self.get_serializer(books, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"])
+    def nonfiction(self, request):
+        books = self.queryset.filter(category="nonfiction", in_stock=True)
+        serializer = self.get_serializer(books, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"], url_path="teens-kids")
+    def teens_kids(self, request):
+        books = self.queryset.filter(category="teens_kids", in_stock=True)
+        serializer = self.get_serializer(books, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"])
+    def audiobooks(self, request):
+        books = self.queryset.filter(category="audiobook", in_stock=True)
+        serializer = self.get_serializer(books, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"], url_path="toys-games")
+    def toys_games(self, request):
+        books = self.queryset.filter(category="toys_games", in_stock=True)
+        serializer = self.get_serializer(books, many=True)
+        return Response(serializer.data)
